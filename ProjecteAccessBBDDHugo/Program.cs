@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ProjecteAccessBBDDHugo.Data;
 using ProjecteAccessBBDDHugo.Model;
 
@@ -5,8 +6,27 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+//injeccio de dependencies 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    var configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .Build();
+
+    string connectionString = configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connectionString);
+});
+
 
 var app = builder.Build();
+
+/*using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+}*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -27,7 +47,7 @@ app.MapRazorPages();
 
 app.Run();
 
-using(var context = new ApplicationDbContext())
+/*using(var context = new ApplicationDbContext())
 {
     var simulation = new Simulation
     {
@@ -43,4 +63,4 @@ using(var context = new ApplicationDbContext())
     };
     context.Simulations.Add(simulation);
     context.SaveChanges();
-}
+}*/
