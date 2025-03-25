@@ -1,3 +1,6 @@
+using ProjecteAccessBBDDHugo.Data;
+using ProjecteAccessBBDDHugo.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,3 +26,21 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+using(var context = new ApplicationDbContext())
+{
+    var simulation = new Simulation
+    {
+        Tipus = "Fotovoltaica",
+        HoresSol = 8,
+        VelocitatVent = 0,
+        CabalAigua = 0,
+        Rati = 0,
+        EnergiaGenerada = 0,
+        CostKWh = 0,
+        PreuKWh = 0,
+        DataHora = DateTime.Now.ToString()
+    };
+    context.Simulations.Add(simulation);
+    context.SaveChanges();
+}
