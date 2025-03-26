@@ -1,5 +1,5 @@
 ﻿@page
-@model ProjecteAccessBBDDHugo.Model.Simulation
+@model EnergiesModel
 @{
 	ViewData["Title"] = "Energies";
 }
@@ -8,67 +8,13 @@
 
 <div>
 	<h4>Simulation</h4>
-	<hr />
-
-	<dl class="row">
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Id)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Id)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Tipus)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Tipus)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.HoresSol)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.HoresSol)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.VelocitatVent)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.VelocitatVent)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.CabalAigua)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.CabalAigua)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Rati)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Rati)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.EnergiaGenerada)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.EnergiaGenerada)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.CostKWh)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.CostKWh)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.PreuKWh)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.PreuKWh)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DataHora)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DataHora)
-		</dd>
-</div>
+	
+	@foreach(var item in Model.Energies)
+	{
+		<div>
+			<h4>@item.Tipus</h4>
+			<p>@item.PreuKWh</p>
+			<p>@item.DataHora</p>
+			<p>@item.EnergiaGenerada</p>
+		</div>
+	})
