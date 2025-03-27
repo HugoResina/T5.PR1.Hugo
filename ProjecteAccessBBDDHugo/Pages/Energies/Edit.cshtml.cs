@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ProjecteAccessBBDDHugo.Data;
-using ProjecteAccessBBDDHugo.Migrations;
 using ProjecteAccessBBDDHugo.Model;
 
 namespace ProjecteAccessBBDDHugo.Pages.Energies
@@ -14,27 +13,26 @@ namespace ProjecteAccessBBDDHugo.Pages.Energies
 		{
 			_context = context;
 		}
+
         [BindProperty]
         public Simulation Simulation { get; set; }
-
-		public async Task<IActionResult> OnGetAsync(int? id)
-		{
-			if (id == null)
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if(id == null||_context.Simulations == null)
 			{
 				return NotFound();
 			}
-			Simulation = await _context.Simulations.FirstOrDefaultAsync(m => m.Id == id);
-			if (Simulation == null)
-			{
-				return NotFound();
-			}
-			return Page();
-
-		}
-
+            var simulation = await _context.Simulations.FirstOrDefaultAsync(s => s.Id == id);
+            if(simulation == null)
+            {
+                return NotFound();
+            }
+            Simulation = simulation;
+            return Page();
+        }
         public async Task<IActionResult> OnPostAsync()
 		{
-			if (!ModelState.IsValid)
+			if(!ModelState.IsValid)
 			{
 				return Page();
 			}
